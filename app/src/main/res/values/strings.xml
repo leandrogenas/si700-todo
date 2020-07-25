@@ -1,0 +1,15 @@
+<resources>
+    <string name="title">ToDo List</string>
+    <string name="act_novo">Nova atividade</string>
+    <string name="act_listar">ListarToDoActivity</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="act_login">Logar</string>
+
+    <string-array name="todo_category">
+        <item>Faculdade</item>
+        <item>Trabalho</item>
+        <item>Hobbies</item>
+    </string-array>
+
+</resources>

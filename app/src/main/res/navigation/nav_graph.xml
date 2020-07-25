@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/NovoToDo">
+
+    <fragment
+        android:id="@+id/NovoToDo"
+        android:name="br.unicamp.ft.l201039_l201253.NovoToDoActivity"
+        android:label="@string/act_novo"
+        tools:layout="@layout/novo_todo">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/ListarToDo" />
+    </fragment>
+    <fragment
+        android:id="@+id/ListarToDo"
+        android:name="br.unicamp.ft.l201039_l201253.ListarToDoActivity"
+        android:label="@string/act_listar"
+        tools:layout="@layout/listar_todo">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/NovoToDo" />
+    </fragment>
+</navigation>

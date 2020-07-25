@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1048729742273",
+    "firebase_url": "https://todolist-5bc36.firebaseio.com",
+    "project_id": "todolist-5bc36",
+    "storage_bucket": "todolist-5bc36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048729742273:android:fc8e4bd35666e53a361d40",
+        "android_client_info": {
+          "package_name": "br.unicamp.ft.l201039_l201253"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1048729742273-hqr8mkotr49ptfg0g9vjrs4f2auageim.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4HooJj8vFkV9GZnvFG0OYig5-QhwXMUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1048729742273-hqr8mkotr49ptfg0g9vjrs4f2auageim.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
