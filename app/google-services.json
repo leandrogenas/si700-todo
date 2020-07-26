@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "1048729742273",
-    "firebase_url": "https://todolist-5bc36.firebaseio.com",
-    "project_id": "todolist-5bc36",
-    "storage_bucket": "todolist-5bc36.appspot.com"
+    "project_number": "570073605707",
+    "firebase_url": "https://todolist-ffb22.firebaseio.com",
+    "project_id": "todolist-ffb22",
+    "storage_bucket": "todolist-ffb22.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1048729742273:android:fc8e4bd35666e53a361d40",
+        "mobilesdk_app_id": "1:570073605707:android:92c510570bb1efe0c28fce",
         "android_client_info": {
           "package_name": "br.unicamp.ft.l201039_l201253"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1048729742273-hqr8mkotr49ptfg0g9vjrs4f2auageim.apps.googleusercontent.com",
+          "client_id": "570073605707-949m64pc7lqrglu47i92hq2q07hik6lk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.unicamp.ft.l201039_l201253",
+            "certificate_hash": "c2900218cceb60a7cbf729972b43b18569cc57fe"
+          }
+        },
+        {
+          "client_id": "570073605707-nnsnrpaeu95lp856auf6970vvqbhopse.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD4HooJj8vFkV9GZnvFG0OYig5-QhwXMUI"
+          "current_key": "AIzaSyBM9G6317qKTStactbpwRsmsARPVuHX48U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1048729742273-hqr8mkotr49ptfg0g9vjrs4f2auageim.apps.googleusercontent.com",
+              "client_id": "570073605707-nnsnrpaeu95lp856auf6970vvqbhopse.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

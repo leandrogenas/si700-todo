@@ -21,4 +21,6 @@
             android:text="@string/hello_world" />
     </FrameLayout>
 
+    <include layout="@layout/barra_inferior" />
+
 </RelativeLayout>
