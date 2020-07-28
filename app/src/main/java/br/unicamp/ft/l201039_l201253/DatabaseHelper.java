@@ -32,17 +32,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE todos (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, atividade Text, categoria Text);");
     }
 
-    public ArrayList<HashMap<String, String>> getToDos(){
+    public ArrayList<ToDo> getToDos(){
         SQLiteDatabase db = this.getWritableDatabase();
-        ArrayList<HashMap<String, String>> todos = new ArrayList<>();
+        ArrayList<ToDo> todos = new ArrayList<>();
         String query = "SELECT * FROM todos";
         Cursor cursor = db.rawQuery(query,null);
         while (cursor.moveToNext()){
-            HashMap<String,String> todo = new HashMap<>();
-            todo.put("atividade",cursor.getString(cursor.getColumnIndex("atividade")));
-            todo.put("categoria",cursor.getString(cursor.getColumnIndex("categoria")));
-            //user.put("location",cursor.getString(cursor.getColumnIndex(KEY_LOC)));
-            todos.add(todo);
+            todos.add(new ToDo(
+                cursor.getString(cursor.getColumnIndex("atividade")),
+                cursor.getString(cursor.getColumnIndex("categoria")),
+                null
+            ));
         }
         return todos;
     }

@@ -113,11 +113,6 @@ public class NovoToDoActivity extends AppCompatActivity {
 
         sqLiteDatabase.insert("todos", null, contentValues);
 
-        ArrayList<HashMap<String, String>> todos = dbHelper.getToDos();
-        for(HashMap<String, String> todo: todos){
-            Log.w("todo", todo.get("atividade"));
-        }
-
     }
 
     public void setData(int ano, int mes, int dia)
