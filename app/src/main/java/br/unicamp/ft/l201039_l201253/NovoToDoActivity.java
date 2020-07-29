@@ -1,33 +1,43 @@
 package br.unicamp.ft.l201039_l201253;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.database.SnapshotParser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.view.View;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 
+import br.unicamp.ft.l201039_l201253.sqlite.DatabaseHelper;
 import br.unicamp.ft.l201039_l201253.util.DatePickerFragment;
 
 public class NovoToDoActivity extends AppCompatActivity {
@@ -49,7 +59,7 @@ public class NovoToDoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.novo_todo);
 
-        dbHelper       = new DatabaseHelper(this);
+        dbHelper       = DatabaseHelper.getInstancia(this);
         sqLiteDatabase = dbHelper.getReadableDatabase();
 
         FloatingActionButton adc = findViewById(R.id.adicionar);
@@ -70,6 +80,15 @@ public class NovoToDoActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton cfg = findViewById(R.id.configs);
+        cfg.setBackgroundTintList(ContextCompat.getColorStateList(NovoToDoActivity.this, R.color.colorSecundary));
+        cfg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NovoToDoActivity.this, ConfigsActivity.class));
+            }
+        });
+
         categorias = findViewById(R.id.categorias);
         atividade = findViewById(R.id.atividade);
         notificar = findViewById(R.id.notificar);
@@ -85,8 +104,10 @@ public class NovoToDoActivity extends AppCompatActivity {
         notificar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(!b)
+                if(!b) {
+                    notificarEm.setVisibility(View.INVISIBLE);
                     return;
+                }
 
                 DatePickerFragment newFragment = new DatePickerFragment(that);
                 newFragment.show(getSupportFragmentManager(), "datePicker");
@@ -102,25 +123,82 @@ public class NovoToDoActivity extends AppCompatActivity {
                 }
             });
 
+
+        createNotificationChannel();
+
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "ToDoList";
+            String description = "appzao da massa";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("IDTODO", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     public void novoToDo()
     {
-        Log.w("tag", "novo");
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("atividade", atividade.getText().toString());
-        contentValues.put("categoria", categorias.getSelectedItem().toString());
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("ultId");
+        DatabaseReference r1 = database.getReference("todos").push();
+        r1.setValue(new ToDo(
+                String.valueOf(r1.getKey()),
+                atividade.getText().toString(),
+                categorias.getSelectedItem().toString(),
+                (dataLembrete != null) ? dataLembrete.getTime().toString() : ""
+        ));
 
-        sqLiteDatabase.insert("todos", null, contentValues);
+//        ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                int id = Integer.parseInt(dataSnapshot.getValue().toString()) + 1;
+//
+//
+//                database.getReference("todos").setValue(new ToDo(
+//                    String.valueOf(id),
+//                    atividade.getText().toString(),
+//                    categorias.getSelectedItem().toString(),
+//                    (dataLembrete != null ) ? dataLembrete.getTime().toString() : ""
+//                ));
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                System.out.println("The read failed: " + databaseError.getCode());
+//            }
+//        });
+
+        //auxRef.child("todos").setValue(new ToDo());
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put("atividade", atividade.getText().toString());
+//        contentValues.put("categoria", categorias.getSelectedItem().toString());
+//        contentValues.put("notificar", (dataLembrete != null ) ? dataLembrete.getTime().toString() : "");
+//
+//        sqLiteDatabase.insert("todos", null, contentValues);
+
+        atividade.setText("");
+        notificar.setChecked(false);
+
+        Toast.makeText(this, "ToDo salvo!", Toast.LENGTH_SHORT).show();
 
     }
 
     public void setData(int ano, int mes, int dia)
     {
         dataLembrete = Calendar.getInstance();
-        dataLembrete.set(ano, mes, dia);
+        dataLembrete.set(ano, mes, dia, 0, 0, 0);
         notificar.setChecked(true);
-        notificarEm.setText("Notificar em: " + dataLembrete.getTime());
+
+        final DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        notificarEm.setText("Notificar em: " + df.format(dataLembrete.getTime()));
         notificarEm.setVisibility(View.VISIBLE);
     }
 

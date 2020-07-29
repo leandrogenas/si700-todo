@@ -2,14 +2,18 @@ package br.unicamp.ft.l201039_l201253.util;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.DatePicker;
+import android.widget.Switch;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
 
 import br.unicamp.ft.l201039_l201253.NovoToDoActivity;
+import br.unicamp.ft.l201039_l201253.R;
 
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
@@ -33,7 +37,12 @@ public class DatePickerFragment extends DialogFragment
 
     }
 
-
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        Switch sw = activity.findViewById(R.id.notificar);
+        sw.setChecked(false);
+    }
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2)

@@ -4,16 +4,20 @@ import java.util.Date;
 
 public class ToDo {
 
+    private String id;
     private String atividade;
     private String categoria;
-    private Date notificar;
+    private String notificar;
 
-    public ToDo(String atividade, String categoria, Date notificar)
+    public ToDo(String id, String atividade, String categoria, String notificar)
     {
+        this.id = id;
         this.atividade = atividade;
         this.categoria = categoria;
         this.notificar = notificar;
     }
+
+    public String getId(){ return id; }
 
     public String getAtividade()
     {
@@ -25,7 +29,7 @@ public class ToDo {
         return categoria;
     }
 
-    public Date getNotificar()
+    public String getNotificar()
     {
         return notificar;
     }

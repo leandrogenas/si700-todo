@@ -129,7 +129,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         } else {
                             Toast.makeText(LoginActivity.this, "Logado",
                                     Toast.LENGTH_SHORT).show();
-                            finish();
+                            Intent intent = new Intent();
+                            intent.setClass(getApplicationContext(), NovoToDoActivity.class);
+                            startActivity(intent);
                         }
                     }
                 });
@@ -144,6 +146,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (account != null) {
             Toast.makeText(this, "Já está logado",
                     Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent();
+            intent.setClass(getApplicationContext(), NovoToDoActivity.class);
+            startActivity(intent);
         } else {
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
         }

@@ -9,10 +9,21 @@
     android:padding="@dimen/box_inset_layout_padding"
     tools:context=".ListarToDoActivity">
 
+    <TextView
+        android:id="@+id/dicaExcluir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textColor="#fff"
+        android:text="Clique longo para concluir" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="25dp"
+        />
 
     <include layout="@layout/barra_inferior" />
 

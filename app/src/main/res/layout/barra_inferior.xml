@@ -33,6 +33,18 @@
         app:rippleColor="@android:color/transparent"
         app:srcCompat="@drawable/list" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/configs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="140dp"
+        android:tint="@android:color/transparent"
+        app:backgroundTint="@color/colorFundo"
+        app:borderWidth="3dp"
+        app:rippleColor="@android:color/transparent"
+        app:srcCompat="@drawable/configs" />
+
     <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
