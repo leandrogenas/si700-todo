@@ -60,14 +60,14 @@ public class ListarToDoActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton cfg = findViewById(R.id.configs);
-        cfg.setBackgroundTintList(ContextCompat.getColorStateList(ListarToDoActivity.this, R.color.colorSecundary));
-        cfg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ListarToDoActivity.this, ConfigsActivity.class));
-            }
-        });
+//        FloatingActionButton cfg = findViewById(R.id.configs);
+//        cfg.setBackgroundTintList(ContextCompat.getColorStateList(ListarToDoActivity.this, R.color.colorSecundary));
+//        cfg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(ListarToDoActivity.this, ConfigsActivity.class));
+//            }
+//        });
 
 
         recyclerView = findViewById(R.id.recycler_view);

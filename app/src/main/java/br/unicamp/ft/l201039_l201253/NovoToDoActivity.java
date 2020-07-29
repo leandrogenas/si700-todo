@@ -10,12 +10,16 @@ import android.os.Bundle;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -80,14 +84,14 @@ public class NovoToDoActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton cfg = findViewById(R.id.configs);
-        cfg.setBackgroundTintList(ContextCompat.getColorStateList(NovoToDoActivity.this, R.color.colorSecundary));
-        cfg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(NovoToDoActivity.this, ConfigsActivity.class));
-            }
-        });
+//        FloatingActionButton cfg = findViewById(R.id.configs);
+//        cfg.setBackgroundTintList(ContextCompat.getColorStateList(NovoToDoActivity.this, R.color.colorSecundary));
+//        cfg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(NovoToDoActivity.this, ConfigsActivity.class));
+//            }
+//        });
 
         categorias = findViewById(R.id.categorias);
         atividade = findViewById(R.id.atividade);
@@ -99,6 +103,24 @@ public class NovoToDoActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorias.setAdapter(adapter);
 
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("fcm", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = token;
+                        Log.w("fcm", msg);
+                        Toast.makeText(NovoToDoActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         final NovoToDoActivity that = this;
         notificar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -156,27 +178,6 @@ public class NovoToDoActivity extends AppCompatActivity {
                 (dataLembrete != null) ? dataLembrete.getTime().toString() : ""
         ));
 
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                int id = Integer.parseInt(dataSnapshot.getValue().toString()) + 1;
-//
-//
-//                database.getReference("todos").setValue(new ToDo(
-//                    String.valueOf(id),
-//                    atividade.getText().toString(),
-//                    categorias.getSelectedItem().toString(),
-//                    (dataLembrete != null ) ? dataLembrete.getTime().toString() : ""
-//                ));
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                System.out.println("The read failed: " + databaseError.getCode());
-//            }
-//        });
-
-        //auxRef.child("todos").setValue(new ToDo());
 //        ContentValues contentValues = new ContentValues();
 //        contentValues.put("atividade", atividade.getText().toString());
 //        contentValues.put("categoria", categorias.getSelectedItem().toString());

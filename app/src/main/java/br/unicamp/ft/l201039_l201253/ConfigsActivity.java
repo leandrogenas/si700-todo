@@ -46,14 +46,14 @@ public class ConfigsActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton cfg = findViewById(R.id.configs);
-        cfg.setBackgroundTintList(ContextCompat.getColorStateList(ConfigsActivity.this, R.color.colorFundo));
-        cfg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ConfigsActivity.this, ConfigsActivity.class));
-            }
-        });
+//        FloatingActionButton cfg = findViewById(R.id.configs);
+//        cfg.setBackgroundTintList(ContextCompat.getColorStateList(ConfigsActivity.this, R.color.colorFundo));
+//        cfg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(ConfigsActivity.this, ConfigsActivity.class));
+//            }
+//        });
 
     }
 
